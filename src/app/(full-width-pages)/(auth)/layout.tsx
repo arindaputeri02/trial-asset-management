@@ -14,7 +14,7 @@ export default function AuthLayout({
       <ThemeProvider>
         <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col dark:bg-gray-900 sm:p-0">
           {children}
-          <div className="bg-[pink] lg:w-2/5 w-full h-full lg:grid items-center hidden">
+          <div className="lg:w-2/5 w-full h-full lg:grid items-center hidden">
             <Image
               src="./images/illustration/bg-login.svg"
               alt="Logo"
