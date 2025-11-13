@@ -16,7 +16,7 @@ export default function AuthLayout({
           {children}
           <div className="lg:w-2/5 w-full h-full lg:grid items-center hidden">
             <Image
-              src="./images/illustration/bg-login.svg"
+              src="/images/illustration/bg-login.svg"
               alt="Logo"
               width={0}
               height={0}

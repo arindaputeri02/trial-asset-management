@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
+export const runtime = "nodejs";
 export async function GET() {
   const drivers = await prisma.driver.findMany({ orderBy: { id: "desc" } });
   return NextResponse.json(drivers);

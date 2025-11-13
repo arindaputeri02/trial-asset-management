@@ -8,25 +8,27 @@ datasource db {
 }
 
 model User {
-  id      Int     @id @default(autoincrement())
-  name    String
-  email   String  @unique
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
   createdAt DateTime @default(now())
+  password  String
+  updatedAt DateTime @updatedAt
 }
 
 model Visitor {
   id        Int      @id @default(autoincrement())
   name      String
   company   String?
-  purpose   String?     // keperluan berkunjung
-  createdAt DateTime  @default(now())
+  purpose   String?
+  createdAt DateTime @default(now())
 }
 
 model Driver {
   id        Int      @id @default(autoincrement())
   name      String
   vehicle   String?
-  licenseNo String?     // nomor SIM atau plat
+  licenseNo String?
   company   String?
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 }

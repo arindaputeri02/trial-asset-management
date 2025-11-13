@@ -3,6 +3,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Button from "@/components/atoms/Button";
 import ConfirmModal from "@/components/atoms/ConfirmModal";
+import { fetchWithAuth } from "@/utils/api";
 
 interface ItemData {
   id: number;
@@ -17,7 +18,7 @@ export default function DriverFormContent() {
 
   useEffect(() => {
     if (id) {
-      fetch("/api/drivers")
+      fetchWithAuth("/api/drivers")
         .then((res) => res.json())
         .then((data) => {
           const found = data.find((x: ItemData) => x.id === Number(id));
@@ -35,7 +36,7 @@ export default function DriverFormContent() {
   };
 
   const confirmSave = async () => {
-    await fetch("/api/drivers", {
+    await fetchWithAuth("/api/drivers", {
       method: id ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),

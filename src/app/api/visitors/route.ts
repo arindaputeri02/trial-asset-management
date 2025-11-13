@@ -2,9 +2,17 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
+export const runtime = "nodejs";
+
 export async function GET() {
-  const visitors = await prisma.visitor.findMany({ orderBy: { id: "desc" } });
-  return NextResponse.json(visitors);
+  try {
+    // console.log("Connecting to Prisma...");
+    const visitors = await prisma.visitor.findMany({ orderBy: { id: "desc" } });
+    return NextResponse.json(visitors);
+  } catch (err) {
+    // console.error("🔥 Prisma error:", err);
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
 }
 
 export async function POST(req: Request) {
