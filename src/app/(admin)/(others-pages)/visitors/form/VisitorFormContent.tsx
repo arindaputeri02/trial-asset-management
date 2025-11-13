@@ -15,16 +15,23 @@ export default function VisitorFormContent() {
   const id = params.get("id");
   const [form, setForm] = useState({ name: "", company: "", purpose: "" });
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (id) {
-      fetchWithAuth("/api/visitors")
-        .then((res) => res.json())
-        .then((data) => {
-          const found = data.find((x: ItemData) => x.id === Number(id));
-          if (found) setForm(found);
-        });
-    }
+    const fetchVisitor = async () => {
+      if (!id) return;
+      setLoading(true);
+      try {
+        const data = await fetchWithAuth("/api/visitors");
+        const found = data.find((x: ItemData) => x.id === Number(id));
+        if (found) setForm(found);
+      } catch (error) {
+        console.error("Gagal mengambil data visitor:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVisitor();
   }, [id]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
@@ -50,32 +57,40 @@ export default function VisitorFormContent() {
       <h1 className="text-xl font-bold mb-4">
         {id ? "Edit Visitor" : "Tambah Visitor"}
       </h1>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="Nama"
-          className="border p-2 w-full rounded"
-        />
-        <input
-          name="company"
-          value={form.company}
-          onChange={handleChange}
-          placeholder="Perusahaan"
-          className="border p-2 w-full rounded"
-        />
-        <input
-          name="purpose"
-          value={form.purpose}
-          onChange={handleChange}
-          placeholder="Keperluan"
-          className="border p-2 w-full rounded"
-        />
-        <Button type="submit" color="blue">
-          Simpan
-        </Button>
-      </form>
+
+      {/* 🔄 Loading State */}
+      {loading && (
+        <div className="text-gray-500">Memuat data...</div>
+      )}
+
+      {!loading && form.name && (
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Nama"
+            className="border p-2 w-full rounded"
+          />
+          <input
+            name="company"
+            value={form.company}
+            onChange={handleChange}
+            placeholder="Perusahaan"
+            className="border p-2 w-full rounded"
+          />
+          <input
+            name="purpose"
+            value={form.purpose}
+            onChange={handleChange}
+            placeholder="Keperluan"
+            className="border p-2 w-full rounded"
+          />
+          <Button type="submit" color="blue">
+            Simpan
+          </Button>
+        </form>
+      )}
 
       <ConfirmModal
         open={showModal}
