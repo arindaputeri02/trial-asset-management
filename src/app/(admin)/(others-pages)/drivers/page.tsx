@@ -56,7 +56,7 @@ export default function DriversPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Manajemen Driver</h1>
+      <h1 className="text-xl font-bold mb-4 dark:text-gray-50">Manajemen Driver</h1>
       <Button
         color="blue"
         className="mb-4"
@@ -67,7 +67,7 @@ export default function DriversPage() {
 
       {/* 🔄 Loading State */}
       {loading && (
-        <div className="flex justify-center items-center py-10 text-gray-500">
+        <div className="flex justify-center items-center py-10 text-gray-500 dark:text-gray-50">
           Memuat data...
         </div>
       )}
@@ -79,7 +79,7 @@ export default function DriversPage() {
 
       {/* 📭 Empty State */}
       {!loading && !error && drivers.length === 0 && (
-        <div className="text-center text-gray-500 py-6">
+        <div className="text-center text-gray-500 py-6 dark:text-gray-50">
           Belum ada data driver. Klik tombol <b>Tambah Driver</b> untuk menambahkan data baru.
         </div>
       )}
@@ -96,7 +96,7 @@ export default function DriversPage() {
               <th className="border p-2 w-32">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-gray-50">
             {drivers.map((v) => (
               <tr key={v.id}>
                 <td className="border p-2">{v.name}</td>

@@ -55,7 +55,7 @@ export default function VisitorsPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Manajemen Visitor</h1>
+      <h1 className="text-xl font-bold mb-4 dark:text-gray-50">Manajemen Visitor</h1>
       <Button
         color="blue"
         className="mb-4"
@@ -66,7 +66,7 @@ export default function VisitorsPage() {
 
       {/* 🔄 Loading State */}
       {loading && (
-        <div className="flex justify-center items-center py-10 text-gray-500">
+        <div className="flex justify-center items-center py-10 text-gray-500 dark:text-gray-50">
           Memuat data...
         </div>
       )}
@@ -78,7 +78,7 @@ export default function VisitorsPage() {
 
       {/* 📭 Empty State */}
       {!loading && !error && visitors.length === 0 && (
-        <div className="text-center text-gray-500 py-6">
+        <div className="text-center text-gray-500 py-6 dark:text-gray-50">
           Belum ada data visitor. Klik tombol <b>Tambah Visitor</b> untuk menambahkan data baru.
         </div>
       )}
@@ -94,7 +94,7 @@ export default function VisitorsPage() {
               <th className="border p-2 w-32">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-gray-50">
             {visitors.map((v) => (
               <tr key={v.id}>
                 <td className="border p-2">{v.name}</td>
